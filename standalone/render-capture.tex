@@ -1,0 +1,63 @@
+\documentclass[margin=0.1cm]{standalone}
+
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+%\usepackage[charter]{mathdesign}
+
+\begin{document}
+ 
+\tdplotsetmaincoords{45}{45}
+\pgfmathsetmacro{\cameraRadius}{2.0}
+
+\pgfmathsetmacro{\cube}{0.2}
+\large
+\begin{tikzpicture}[scale=3.0, tdplot_main_coords]
+
+  \draw[<-] (\cameraRadius+0.5,0,0) -- (-\cameraRadius-0.5,0,0) node[pos=0.0, anchor=north west]{$x$};
+  \draw[->] (0,-\cameraRadius-0.5,0) -- (0,\cameraRadius+0.7,0) node[anchor=south west]{$y$};
+  \draw[->] (0,0,-\cameraRadius-0.5) -- (0,0,\cameraRadius+1) node[anchor=south]{$z$};
+
+
+  % rear set
+  \foreach \x in {0,...,12} {
+    %\tdplotsetthetaplanecoords{\x*20}
+    %\tdplotdrawarc[dashed, tdplot_rotated_coords]{(0,0,0)}{{\cameraRadius}}{0}{180}{}{};
+    \tdplotsetrotatedcoords{0}{\x*15}{0}
+    \tdplotdrawarc[dotted, tdplot_rotated_coords]{(0,0,0)}{{\cameraRadius}}{0}{180}{}{};
+  }
+  
+  %\tdplotsetrotatedcoords{0}{90}{0}
+  %\tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{{\cameraRadius}}{0}{180}{}{};
+  
+  \foreach \x in {0,...,12} {
+    \tdplotsetthetaplanecoords{\x*15}
+    \tdplotdrawarc[dashed, tdplot_rotated_coords]{(0,0,0)}{{\cameraRadius}}{0}{180}{}{};
+  }
+
+  % right
+  \draw[fill=white] (\cube, -\cube, -\cube) -- (\cube, \cube, -\cube) -- (\cube, \cube, \cube) -- (\cube, -\cube, \cube) -- (\cube, -\cube, -\cube);
+  % front
+  \draw[fill=white] (\cube, -\cube, -\cube) -- (-\cube, -\cube, -\cube) -- (-\cube, -\cube, \cube) -- (\cube, -\cube, \cube) -- (\cube, -\cube, -\cube);
+  % top
+  \draw[fill=white] (\cube, -\cube, \cube) -- (\cube, \cube, \cube) -- (-\cube, \cube, \cube) -- (-\cube, -\cube, \cube) -- (\cube, -\cube, \cube);
+
+  % front set
+  \foreach \x in {0,...,12} {
+    \tdplotsetrotatedcoords{0}{\x*15}{0}
+    \tdplotdrawarc[dotted, tdplot_rotated_coords]{(0,0,0)}{{\cameraRadius}}{180}{360}{}{};
+  }
+  \foreach \x in {13,...,24} {
+    \tdplotsetthetaplanecoords{\x*15}
+    \tdplotdrawarc[dashed, tdplot_rotated_coords]{(0,0,0)}{{\cameraRadius}}{0}{180}{}{};
+  }
+
+  % about y
+  \tdplotsetthetaplanecoords{0}
+  \tdplotdrawarc[->, black, tdplot_rotated_coords]{(0,0,\cameraRadius+0.5)}{{0.2}}{0}{270}{anchor=north west}{$\alpha$};
+
+  % about z
+  \tdplotdrawarc[->, black]{(0,0,\cameraRadius+1.)}{{0.2}}{0}{270}{anchor=south}{$\beta$};
+
+\end{tikzpicture}
+
+\end{document}

@@ -4,8 +4,11 @@
 % Load trebuchet in for the title and section fonts
 \usepackage{fontspec}
 \newfontfamily\titlefont{Trebuchet MS}
-% Set up times new roman as font for text and maths
-\usepackage{stix}
+\setmainfont{XITS}
+
+\usepackage[fleqn]{amsmath}
+\usepackage[mathrm=sym]{unicode-math}
+\setmathfont{XITS Math}
 
 % Word spacing and formatting
 \usepackage[british]{babel}
@@ -13,8 +16,6 @@
 \usepackage{microtype}
 %\usepackage[none]{hyphenat} % prevent hyphenation to allow easy copy and paste to word template later
 
-% Maths
-\usepackage[fleqn]{amsmath}
 
 \usepackage{xcolor}
 \usepackage{mdframed}
